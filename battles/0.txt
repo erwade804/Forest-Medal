@@ -1,0 +1,3 @@
+cardImages/archer.png, 50, 5, 8
+cardImages/manaMage.png, 50, 5, 8
+cardImages/sword.png, 60, 15, 15
