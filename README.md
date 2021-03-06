@@ -1,1 +1,32 @@
 # Forest-Medal
+Forest Medal is a game, with its main feature being the combat system (work in progress) being similar to a dungeon crawler. There is also an in-game world editor, including for NPCs. The story is currently being built, so as of right now there is very limited gameplay and storytelling. 
+
+A few of the mechanics of this game include a card system, the battle system, and in the future a progression system for not only cards, but for the game entirely.  The card system is pretty simple, you have an inventory of cards, and you can only use 3 of them in a match. There are archetypes in the cards that give advantages and disadvantages. Some include archers, which can shoot fast, but have very low damage. The swordsman who has a high health and high damage, but is lacking in attack speed. And the mage who is a pretty average on all accounts. The battle system lets you, once the card's energy is charged, make the choice to either defend for half of its energy, or attack for all of its energy. If it choses defend, it becomes resistant to the next swing. This ability does not stack, as the defence will run out before they can defend again. When attacking, you will be given the option of who to attack. This can be helpful by getting rid of any annoying counter to your cards quickly, and gives less space for randomness. The progression systems will be similar to Pokémon's progression system, the farther you go, the better stats your cards can achieve, and the more places open up, such as new towns, ect. 
+
+The code is fairly long so this is an overview of the entire work. The main file, "MedalForest_GameJam", has two main functions, setup and draw. Setup is simply setting up everything that needs to be ready for when the game is ran, such as the cards, NPCs, the database, ect. The draw function only calls a different draw function, this is for a potential overlay after the scene has been drawn to the screen. 
+
+The DrawF file contains all the drawing functions, including the one called in the previous draw function. DrawTheMode is the main function, as it is the one that decided what is drawn and updates the inputs for the program. This function gives the ability to change the mode, such as being in a text menu, the editor, the main menu, ect., without having to swap entire scenes and load in everything on a wim. DrawMap draws the map where the player is currently, then draws the NPCs on top. 
+
+The Map file contains the Map class, in which map files can be stored as an object for ease of access. 
+
+The MapF file contains the loadMap, createMap, and loadMainMap functions. The loadMainMap function loads the map the player is in, and the surrounding 8 maps, so when the player decides to move to a different map, the game has it ready and waiting. CreateMap simply creates a new map. And loadMap loads a specific map from a given file.
+
+The MouAndKey file contains 4 important functions, mousePressed, mouseDragged, keyPressed, and updateKeys. MousePressed and mouseDragged contain the same code, but are built in functions that need to have the code written out, they check the mode, the check the position and do what is needed. The keyPressed has an array of boolean objects that start off as false. When a key is pressed, its corresponding index will turn true until the input is used. The updateKeys function uses the key inputs to decide what the player does, both in battles and in the normal world.
+
+The MySQL file contains all the functions needed to access, update, insert, and delete from the database all in a MySQL class. The main function of this class is to deal with NPC loading, and battle loading. It gets the cards for the battle and the position and sprite number for the NPCs. 
+
+The NPC file contains the NPC class. This class has a lot of functions and constructors for various uses. GetText gets the text that the NPC will say when you talk to them. GetSpriteID gets the sprite ID to load the sprite for the NPC. SetLocation sets the location of the NPC so that it generates in that specific location. SetLines sets the text for the NPC. SetImage sets the sprite image, while setSprite sets the sprite index. And lastly setFight sets the fight number, to retrieve from the database when the fight is actually called.
+
+The SelectionF file deals solely with the editor. The drawHighLight function draws a highlight over the block highlighted in the selection wheel on the right. The drawSelection function draws the selection wheel on the right. The selectedTypeAdd sets the selected type of block, such as floor, walls, NPC, ect. to the selection wheel.
+
+In the Text file there are two functions, drawText and nextLine. DrawText draws a line of text from the NPC, and nextLine goes to the next line of text from the NPC.
+
+The Card file contains the card class. The card class contains all the information for the card, including a health, damage, and speed stat. Along with this, they have a cooldown stat for their energy charge. There are three basic functions that the card class uses, takeDamage, atMax, and tick. TakeDamage is how the cards will take damage, this is to make a general place to change the way defense affects damage if added. AtMax returns true if the cooldown is equal to their speed, or better known as charge is full. Tick is a function called every frame, if there are no cards at max charge, then all cards would tick, if there is any card at max charge, all cards would stop being able to tick.
+
+The cardF file contains functions that help with cards with the system. DrawCards draws the cards where they need to be. DrawArrow draws an arrow where the selection would be for the attacks and defense buttons are. LoadBattle is a default battle loader, this will be replaced by the MySQL class. GetMoveType takes the arrow from earlier, and lets the user select who to attack, or to block. 
+
+The door file is for use at a later date, to connect different "worlds" together to recreate a building. 
+
+The mainMenu file contains two functions, drawMainMenu which draws the main menu, and drawOptionsMenu which draws the options menu. 
+
+The last file movementF is the movement file, it contains a single function called checkMove that checks if the the player can move to a specific location on the map. This allows the player to move left, right, up, down, and across maps when swapping maps. Such as if there is a blocked path to the left, but you can not see it, it will not let you enter the map on the left. 
